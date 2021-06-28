@@ -15,4 +15,16 @@ export default class Http {
     else
       return 'fail';
   }
+
+  static async registrar(data) {
+    console.log(data);
+    // const response = await axios
+    //   .post(Http.server + "registrar", data)
+    //   .then((res) => res.data);
+    // return response;
+    if(Math.random()<0.8)
+      return 'ok';
+    else
+      return 'fail';
+  }
 }

@@ -12,19 +12,22 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
-import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 
-// import Http from "../services/Http";
+import Http from "../service/Http";
 
 class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       showPassword: false,
-      confirmPass: "",
+      nombre: "",
+      apellido: "",
+      dpi: "",
+      correo: "",
+      direccion: "",
       password: "",
-      user: "",
+      confirmPass: "",
     };
   }
   render() {
@@ -32,41 +35,41 @@ class Register extends React.Component {
       <div>
         <Card className="login-card">
           <CardContent>
-            <form action="http://localhost:3000/">
+            <form>
               <Typography color="textSecondary" variant="h4">
                 Registrar
               </Typography>
               <TextField
-                id="outlined-basic"
+                id="outlined-nombre"
                 label="Nombre"
                 variant="outlined"
                 className="login-user"
-                value={this.state.user}
-                onChange={this.handleChange("user")}
+                value={this.state.nombre}
+                onChange={this.handleChange("nombre")}
               />
               <TextField
-                id="outlined-basic"
+                id="outlined-apellido"
                 label="Apellido"
                 variant="outlined"
                 className="login-user"
-                value={this.state.user}
-                onChange={this.handleChange("user")}
+                value={this.state.apellido}
+                onChange={this.handleChange("apellido")}
               />
               <TextField
-                id="outlined-basic"
+                id="outlined-dpi"
                 label="DPI"
                 variant="outlined"
                 className="login-user"
-                value={this.state.user}
-                onChange={this.handleChange("user")}
+                value={this.state.dpi}
+                onChange={this.handleChange("dpi")}
               />
               <TextField
-                id="outlined-basic"
+                id="outlined-correo"
                 label="Correo"
                 variant="outlined"
                 className="login-user"
-                value={this.state.user}
-                onChange={this.handleChange("user")}
+                value={this.state.correo}
+                onChange={this.handleChange("correo")}
               />
               <FormControl className="login-pass" variant="outlined">
                 <InputLabel htmlFor="outlined-adornment-password">
@@ -119,12 +122,12 @@ class Register extends React.Component {
                 />
               </FormControl>
               <TextField
-                id="outlined-basic"
+                id="outlined-direccion"
                 label="Dirección"
                 variant="outlined"
                 className="login-user"
-                value={this.state.user}
-                onChange={this.handleChange("user")}
+                value={this.state.direccion}
+                onChange={this.handleChange("direccion")}
               />
               <CardActions>
                 <Button
@@ -156,41 +159,54 @@ class Register extends React.Component {
   handleChange = (prop) => (event) => {
     this.setState({ [prop]: event.target.value });
   };
-  registerSubmit = async() => {
-    // if (this.state.password === this.state.confirmPass) {
-    //   let new_user = {
-    //     usuario: this.state.user,
-    //     password: this.state.password,
-    //     tipo_usuario: "muni",
-    //   };
-    //   let response = await Http.registrar(new_user);
-    //   if (response === 'ok'){
-    //     alert('Usuario ingresado con éxito!');
-    //     this.props.history.push("/login");
-    //   }
-    //   else{
-    //     alert('ERROR: No se logró registrar el usuario, intente de nuevo!');
-    //     this.setState({
-    //       confirmPass: "",
-    //       password: "",
-    //       user:""
-    //     });
-    //   }
-    // } else {
-    //   alert("Las contraseñas no coinciden, intente de nuevo!");
-    //   this.setState({
-    //     confirmPass: "",
-    //     password: "",
-    //   });
-    // }
+  registerSubmit = async () => {
+    if (this.state.password !== this.state.confirmPass) {
+      alert("Las contraseñas no coinciden, intente de nuevo!");
+      this.setState({
+        confirmPass: "",
+        password: "",
+      });
+    } else if (this.testComplete()) {
+      alert("Falta un dato dentro los requisitos, intente de nuevo!");
+      this.setState({
+        confirmPass: "",
+        password: "",
+      });
+    } else {
+      let new_user = {
+        nombre: this.state.nombre,
+        apellido: this.state.apellido,
+        dpi: this.state.dpi,
+        correo: this.state.correo,
+        direccion: this.state.direccion,
+        password: this.state.password
+      };
+      let response = await Http.registrar(new_user);
+      if (response === "ok") {
+        alert("Usuario ingresado con éxito!");
+        this.props.history.push("/login");
+      } else {
+        alert("ERROR: No se logró registrar el usuario, intente de nuevo!");
+        this.setState({
+          confirmPass: "",
+          password: "",
+        });
+      }
+    }
     // console.log(this.state);
   };
   registerRedirect = () => {
     this.props.history.push("/login");
   };
+  testComplete = () => {
+    return this.state.nombre === "" ||
+      this.state.apellido === "" ||
+      this.state.dpi === "" ||
+      this.state.correo === "" ||
+      this.state.direccion === "" ||
+      this.state.password === "" ||
+      this.state.confirmPass === "";
+  };
 }
-Register.contextTypes = {
-  router: PropTypes.object,
-};
 
 export default withRouter(Register);
