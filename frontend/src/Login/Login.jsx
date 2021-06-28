@@ -15,7 +15,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Divider from '@material-ui/core/Divider';
 import { withRouter } from "react-router-dom";
 
-// import Http from "../services/Http";
+import Http from "../service/Http";
 
 import "./Login.css";
 
@@ -25,7 +25,7 @@ class Login extends React.Component {
     this.state = {
       showPassword: false,
       password: "",
-      user: "",
+      correo: "",
     };
   }
   render() {
@@ -42,8 +42,8 @@ class Login extends React.Component {
                 label="Correo"
                 variant="outlined"
                 className="login-user"
-                value={this.state.user}
-                onChange={this.handleChange("user")}
+                value={this.state.correo}
+                onChange={this.handleChange("correo")}
               />
               <FormControl className="login-pass" variant="outlined">
                 <InputLabel htmlFor="outlined-adornment-password">
@@ -109,19 +109,19 @@ class Login extends React.Component {
     this.setState({ [prop]: event.target.value });
   };
   loginSubmit = async () => {
-    // let data = { usuario: this.state.user, password: this.state.password };
-    // let response = await Http.login(data);
-    // if(response !== 'fail'){
-    //   localStorage.setItem('user', response);
-    //   this.props.history.push("/");
-    // }
-    // else{
-    //   alert('No existe el usuario en la base de datos!');
-    //   this.setState({
-    //     password: "",
-    //     user: "",
-    //   });
-    // }
+    let data = { correo: this.state.correo, password: this.state.password };
+    let response = await Http.login(data);
+    if(response !== 'fail'){
+      localStorage.setItem('user', response);
+      this.props.history.push("/");
+    }
+    else{
+      alert('No existe el usuario en la base de datos!');
+      this.setState({
+        password: "",
+        user: "",
+      });
+    }
   };
   loginRedirect = () => {
     this.props.history.push("/register");
