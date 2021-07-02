@@ -9,7 +9,7 @@ const ProductItem = props => {
           <div className="media-left">
             <figure className="image is-64x64">
               <img
-                src="https://es.seaicons.com/wp-content/uploads/2015/06/15-Computer-Lovers-icon.png"
+                src={product.imagen}
                 alt={product.descripcion}
               />
             </figure>
@@ -30,7 +30,7 @@ const ProductItem = props => {
                 className="button is-small is-outlined is-info   is-pulled-right"
                 onClick={() =>
                   props.addToCart({
-                    id: product.name,
+                    id: product.nombre,
                     product,
                     amount: 1
                   })

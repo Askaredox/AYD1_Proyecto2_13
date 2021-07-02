@@ -35,17 +35,18 @@ export default class App extends Component {
 
   login = async (email, password) => {
     const res = await axios.post(
-      'http://34.69.108.162/login',
+      'http://34.69.108.162/login',//'http://localhost:3001/login',
       { email, password },
-    ).catch((res) => {
+    )/*
+    .catch((res) => {
       return { status: 401, message: 'Unauthorized' }
-    })  
+    }) */ 
 
-    if(res.status === 200) {
-      const { email } = jwt_decode(res.data.accessToken)
+    if(res !== 'fail') {
+     /* const { email } = jwt_decode(res.data.accessToken)*/
       const user = {
         email,
-        token: res.data.accessToken,
+       // token: res.data.accessToken,
         accessLevel: email === 'admin@example.com' ? 0 : 1
       }
 
@@ -55,11 +56,12 @@ export default class App extends Component {
     } else {
       return false;
     }
+
   }
 
   register = async (email, password) => {
     const res = await axios.post(
-      'http://34.69.108.162/usuario',
+      'http://localhost:3001/usuario',
       { email, password },
     ).catch((res) => {
       return { status: 401, message: 'Unauthorized' }
@@ -89,8 +91,8 @@ export default class App extends Component {
     } else {
       cart[cartItem.id] = cartItem;
     }
-    if (cart[cartItem.id].amount > cart[cartItem.id].product.stock) {
-      cart[cartItem.id].amount = cart[cartItem.id].product.stock;
+    if (cart[cartItem.id].amount > cart[cartItem.id].product.cantidad) {
+      cart[cartItem.id].amount = cart[cartItem.id].product.cantidad;
     }
     localStorage.setItem("cart", JSON.stringify(cart));
     this.setState({ cart });
@@ -118,11 +120,11 @@ export default class App extends Component {
     const cart = this.state.cart;
 
     const products = this.state.products.map(p => {
-      if (cart[p.name]) {
-        p.stock = p.stock - cart[p.name].amount;
+      if (cart[p.nombre]) {
+        p.cantidad = p.canttidad - cart[p.nombre].amount;
 
         axios.put(
-          `http://34.69.108.162/producto/${p.id}`,
+          `http://localhost:3001/products/${p.id}`,
           { ...p },
         )
       }
@@ -154,7 +156,7 @@ export default class App extends Component {
             aria-label="main navigation"
           >
             <div className="navbar-brand">
-              <b className="navbar-item is-size-4 "><h1>E</h1>lectronic !!!!<h1>S</h1>hop</b>
+              <b className="navbar-item is-size-4 "><h1>E</h1>lectronic !!! <h1>S</h1>hop</b>
               <label
                 role="button"
                 class="navbar-burger burger"
