@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+import Http from "../services/Http";
 import withContext from "../withContext";
+
 
 class Register extends Component {
   constructor(props) {
@@ -16,37 +18,47 @@ class Register extends Component {
 
   handleChange = e => this.setState({ [e.target.name]: e.target.value, error: "" });
 /*
-  login = (e) => {
-    e.preventDefault();
-
-    const { username, password } = this.state;
-    if (!username || !password) {
-      return this.setState({ error: "Fill all fields!" });
-    }
-    this.props.context.login(username, password)
-      .then((loggedIn) => {
-        if (!loggedIn) {
-          this.setState({ error: "Invalid Credentails" });
-        }
-      })
-  };
-*/
-
   register = (e) => {
     e.preventDefault();
 
-    
     const { nombre, dpi, direccion, correo_electronico, contrasena } = this.state;
     if (!nombre || !dpi || !direccion || !correo_electronico || !contrasena) {
       return this.setState({ error: "Fill all fields!" });
     }
-   /* this.props.context.register(correo_electronico, contrasena)
+
+    this.props.context.register(nombre, dpi, direccion, correo_electronico, contrasena)
     .then((loggedIn) => {
-      if (!loggedIn) {
-        this.setState({ error: "Datos Invalidos" });
+      return true;
+    })
+  };   
+*/
+
+
+
+  register = async ( pnombre, pdpi, pdireccion, pcorreo_electronico, pcontrasena) => {
+
+
+    const { nombre, dpi, direccion, correo_electronico, contrasena } = this.state;
+    if (!nombre || !dpi || !direccion || !correo_electronico || !contrasena) {
+      return this.setState({ error: "Fill all fields!" });
+    }else{
+     
+      const data = {  nombre:this.state.nombre, dpi:this.state.dpi, direccion:this.state.direccion, correo_electronico:this.state.correo_electronico, contrasena:this.state.contrasena };
+      const response = await Http.registrar(data);
+      if (response === 'ok'){
+        alert('Usuario ingresado con éxito!');    
+         
       }
-    }) */  
-  };
+      else{
+        alert('ERROR: No se logró registrar el usuario, intente de nuevo!');
+      }  
+
+    }
+
+    
+    
+
+  }
 
 
 

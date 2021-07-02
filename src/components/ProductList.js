@@ -2,6 +2,9 @@ import React from "react";
 import ProductItem from "./ProductItem";
 import withContext from "../withContext";
 
+
+
+
 const ProductList = props => {
   const { products } = props.context;
 
@@ -13,7 +16,8 @@ const ProductList = props => {
         </div>
       </div>
       <br />
-      <div className="container">
+      <div className="container">        
+
         <div className="column columns is-multiline">
           {products && products.length ? (
             products.map((product, index) => (

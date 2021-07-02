@@ -8,7 +8,7 @@ import Cart from './components/Cart';
 import Login from './components/Login';
 import ProductList from './components/ProductList';
 import Register from './components/Register';
-
+import Http from "./services/Http";
 import Context from "./Context";
 
 export default class App extends Component {
@@ -34,42 +34,45 @@ export default class App extends Component {
   }
 
   login = async (email, password) => {
-    const res = await axios.post(
-      'http://34.69.108.162/login',//'http://localhost:3001/login',
-      { email, password },
-    )/*
-    .catch((res) => {
-      return { status: 401, message: 'Unauthorized' }
-    }) */ 
 
-    if(res !== 'fail') {
-     /* const { email } = jwt_decode(res.data.accessToken)*/
-      const user = {
-        email,
-       // token: res.data.accessToken,
-        accessLevel: email === 'admin@example.com' ? 0 : 1
-      }
 
-      this.setState({ user });
-      localStorage.setItem("user", JSON.stringify(user));
-      return true;
-    } else {
-      return false;
-    }
-
-  }
-
-  register = async (email, password) => {
-    const res = await axios.post(
-      'http://localhost:3001/usuario',
-      { email, password },
-    ).catch((res) => {
-      return { status: 401, message: 'Unauthorized' }
-    })  
+    let data = { correo_electronico: email, contrasena: password };
+    let response = await Http.login(data);
+    if(response !== 'fail') {
+     
+       const user = {
+         email,
+         accessLevel: email === 'admin@example.com' ? 0 : 1
+       }
+ 
+       this.setState({ user });
+       localStorage.setItem("user", JSON.stringify(user));
+      
+       return true;
+     } else {
+       return false;
+     }
+    
    
+
   }
+/*
+  register = async ( pnombre, pdpi, pdireccion, pcorreo_electronico, pcontrasena) => {
 
 
+    let data = {  nombre:pnombre, dpi:pdpi, direccion:pdireccion, correo_electronico:pcorreo_electronico, contrasena:pcontrasena };
+    let response = await Http.registrar(data);
+    if (response === 'ok'){
+      alert('Usuario ingresado con éxito!');      
+    }
+    else{
+      alert('ERROR: No se logró registrar el usuario, intente de nuevo!');
+    }
+    
+   
+
+  }
+*/
 
 
   logout = e => {
