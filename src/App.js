@@ -26,7 +26,7 @@ export default class App extends Component {
     let user = localStorage.getItem("user");
     let cart = localStorage.getItem("cart");
 
-    const products = await axios.get('http://35.202.54.148/producto');
+    const products = await axios.get('http://34.69.108.162/producto');
     user = user ? JSON.parse(user) : null;
     cart = cart? JSON.parse(cart) : {};
 
@@ -35,7 +35,7 @@ export default class App extends Component {
 
   login = async (email, password) => {
     const res = await axios.post(
-      'http://localhost:3001/login',
+      'http://34.69.108.162/login',
       { email, password },
     ).catch((res) => {
       return { status: 401, message: 'Unauthorized' }
@@ -59,7 +59,7 @@ export default class App extends Component {
 
   register = async (email, password) => {
     const res = await axios.post(
-      'http://localhost:3001/usuario',
+      'http://34.69.108.162/usuario',
       { email, password },
     ).catch((res) => {
       return { status: 401, message: 'Unauthorized' }
@@ -122,7 +122,7 @@ export default class App extends Component {
         p.stock = p.stock - cart[p.name].amount;
 
         axios.put(
-          `http://localhost:3001/products/${p.id}`,
+          `http://34.69.108.162/producto/${p.id}`,
           { ...p },
         )
       }
