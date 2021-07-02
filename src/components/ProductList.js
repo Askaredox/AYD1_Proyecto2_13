@@ -26,7 +26,7 @@ const ProductList = props => {
     <>
       <div className="hero is-medium is-info">
         <div className="hero-body container">
-          <h1 className="title"> <font size="70">Todos Los Productos</font></h1>
+          <h1 className="title"> <font size="70">Todos Los Productos!!!!!</font></h1>
         </div>
       </div>
       <br />
