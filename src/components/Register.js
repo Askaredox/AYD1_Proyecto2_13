@@ -20,7 +20,6 @@ class Register extends Component {
 
 
 
-
   register = async ( pnombre, pdpi, pdireccion, pcorreo_electronico, pcontrasena) => {
 
 

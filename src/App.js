@@ -17,7 +17,8 @@ export default class App extends Component {
     this.state = {
       user: null,
       cart: {},
-      products: []
+      products: [],
+      correo:null
     };
     this.routerRef = React.createRef();
   }
@@ -47,7 +48,11 @@ export default class App extends Component {
  
        this.setState({ user });
        localStorage.setItem("user", JSON.stringify(user));
-      
+
+       this.setState({
+        correo:email
+      });
+
        return true;
      } else {
        return false;
@@ -56,23 +61,7 @@ export default class App extends Component {
    
 
   }
-/*
-  register = async ( pnombre, pdpi, pdireccion, pcorreo_electronico, pcontrasena) => {
 
-
-    let data = {  nombre:pnombre, dpi:pdpi, direccion:pdireccion, correo_electronico:pcorreo_electronico, contrasena:pcontrasena };
-    let response = await Http.registrar(data);
-    if (response === 'ok'){
-      alert('Usuario ingresado con éxito!');      
-    }
-    else{
-      alert('ERROR: No se logró registrar el usuario, intente de nuevo!');
-    }
-    
-   
-
-  }
-*/
 
 
   logout = e => {
@@ -124,12 +113,33 @@ export default class App extends Component {
 
     const products = this.state.products.map(p => {
       if (cart[p.nombre]) {
-        p.cantidad = p.canttidad - cart[p.nombre].amount;
+        p.cantidad = cart[p.nombre].cantidad_prod - cart[p.nombre].amount;
 
-        axios.put(
-          `http://localhost:3001/products/${p.id}`,
-          { ...p },
-        )
+       // alert('Usuario ingresado con éxito!'+p.id_producto+'  '+p.cantidad); 
+        
+             
+(async () => {
+
+  const headers = {
+    id_producto: p.id_producto, 
+    cantidad:p.cantidad
+  };
+
+  axios
+.put('http://34.69.108.162/producto', {headers})
+.then(function(result) {
+  console.log('Logging result ' + result);
+ // alert('Logging result ' + result); 
+})
+.catch(function(error) {
+  console.log('What happened? ' + error);
+  //alert('What happened? ' + error); 
+});
+
+})();
+
+
+
       }
       return p;
     });
