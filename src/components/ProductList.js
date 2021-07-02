@@ -19,10 +19,8 @@ const ProductList = props => {
   const handleChangev = (event, value) => {
     setValue(value);
   };
-  console.log(products);
-  const t = [];
   products=products.filter(v=>{
-    return value===0||v.categoria_id_categoria===parseInt(value)
+    return parseInt(value)===0||v.categoria_id_categoria===parseInt(value)
   })
   return (
     <>

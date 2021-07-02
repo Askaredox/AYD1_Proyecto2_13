@@ -168,7 +168,7 @@ export default class App extends Component {
               <b className="navbar-item is-size-4 "><h1>E</h1>lectronic !!! <h1>S</h1>hop</b>
               <label
                 role="button"
-                class="navbar-burger burger"
+                className="navbar-burger burger"
                 aria-label="menu"
                 aria-expanded="false"
                 data-target="navbarBasicExample"
