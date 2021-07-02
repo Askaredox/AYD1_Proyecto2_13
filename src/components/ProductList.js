@@ -3,19 +3,27 @@ import ProductItem from "./ProductItem";
 import withContext from "../withContext";
 import Typography from "@material-ui/core/Typography";
 import Pagination from "@material-ui/lab/Pagination";
-
-
-
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 const ProductList = props => {
-  const { products } = props.context;
+  let { products } = props.context;
   const [page, setPage] = React.useState(1);
   const handleChange = (event, value) => {
     setPage(value);
   };
+  const [value, setValue] = React.useState(0);
+  const handleChangev = (event, value) => {
+    setValue(value);
+  };
+  console.log(products);
   const t = [];
-  t.slice()
-
+  products=products.filter(v=>{
+    return value===0||v.categoria_id_categoria===parseInt(value)
+  })
   return (
     <>
       <div className="hero is-medium is-info">
@@ -25,7 +33,20 @@ const ProductList = props => {
       </div>
       <br />
       <div className="container">        
-
+        <FormControl component="fieldset">
+          <FormLabel component="legend">Categoria</FormLabel>
+          <RadioGroup aria-label="gender" name="gender1" value={parseInt(value)} onChange={handleChangev}>
+            <FormControlLabel value={0} control={<Radio />} label="Todos" />
+            <FormControlLabel value={1} control={<Radio />} label="TV y Video" />
+            <FormControlLabel value={2} control={<Radio />} label="Audio" />
+            <FormControlLabel value={3} control={<Radio />} label="Seguridad" />
+            <FormControlLabel value={4} control={<Radio />} label="Computación" />
+          </RadioGroup>
+        </FormControl>
+        <div>
+          <Typography>Page: {page}</Typography>
+          <Pagination count={Math.round(products.length/10)} page={page} onChange={handleChange} />
+        </div>
         <div className="column columns is-multiline">
           {products && products.length ? (
             products.map((product, index) => (
@@ -34,7 +55,7 @@ const ProductList = props => {
                 key={index}
                 addToCart={props.context.addToCart}
               />
-            )).slice(Math.round(products.length/10)*(page-1),Math.round(products.length/10)*(page))
+            )).slice(10*(page-1),10*(page))
           ) : (
             <div className="column">
               <span className="title has-text-grey-light">
@@ -45,7 +66,7 @@ const ProductList = props => {
         </div>
         <div>
           <Typography>Page: {page}</Typography>
-          <Pagination count={10} page={page} onChange={handleChange} />
+          <Pagination count={Math.round(products.length/10)} page={page} onChange={handleChange} />
         </div>
       </div>
     </>
