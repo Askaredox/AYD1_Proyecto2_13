@@ -20,6 +20,14 @@ export default class Http {
   }
   
   
+   static async rebajar(data) {
+    const response = await axios
+      .post(Http.server + "productoUpdate", data)
+      .then((res) => res.data);
+    return response;
+  }
+  
+  
 }
 
 /**

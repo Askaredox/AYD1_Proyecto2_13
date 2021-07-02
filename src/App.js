@@ -117,26 +117,22 @@ export default class App extends Component {
 
        // alert('Usuario ingresado con éxito!'+p.id_producto+'  '+p.cantidad); 
         
-             
+       
 (async () => {
 
-  const headers = {
+  let data = {
     id_producto: p.id_producto, 
     cantidad:p.cantidad
   };
-
-  axios
-.put('http://34.69.108.162/producto', {headers})
-.then(function(result) {
-  console.log('Logging result ' + result);
- // alert('Logging result ' + result); 
-})
-.catch(function(error) {
-  console.log('What happened? ' + error);
-  //alert('What happened? ' + error); 
-});
+  let response = await Http.rebajar(data);
+  if(response !== 'ok') {
+    alert('Logging result ' + response); 
+  } else {
+    alert('What happened? ' + response); 
+  }
 
 })();
+
 
 
 
