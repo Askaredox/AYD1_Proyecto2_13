@@ -32,7 +32,9 @@ const ProductItem = props => {
                   props.addToCart({
                     id: product.nombre,
                     product,
-                    amount: 1
+                    amount: 1,
+                    id_prod:product.id_producto,
+                    cantidad_prod:product.cantidad
                   })
                 }
               >
