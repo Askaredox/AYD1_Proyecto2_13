@@ -17,21 +17,7 @@ class Register extends Component {
   }
 
   handleChange = e => this.setState({ [e.target.name]: e.target.value, error: "" });
-/*
-  register = (e) => {
-    e.preventDefault();
 
-    const { nombre, dpi, direccion, correo_electronico, contrasena } = this.state;
-    if (!nombre || !dpi || !direccion || !correo_electronico || !contrasena) {
-      return this.setState({ error: "Fill all fields!" });
-    }
-
-    this.props.context.register(nombre, dpi, direccion, correo_electronico, contrasena)
-    .then((loggedIn) => {
-      return true;
-    })
-  };   
-*/
 
 
 
