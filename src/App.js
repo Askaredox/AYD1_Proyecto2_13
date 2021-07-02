@@ -8,7 +8,7 @@ import Cart from './components/Cart';
 import Login from './components/Login';
 import ProductList from './components/ProductList';
 import Register from './components/Register';
-import Http from "./services/Http";
+import Http from "./service/Http";
 import Context from "./Context";
 
 export default class App extends Component {
