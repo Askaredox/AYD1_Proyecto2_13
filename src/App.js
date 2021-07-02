@@ -126,9 +126,9 @@ export default class App extends Component {
   };
   let response = await Http.rebajar(data);
   if(response !== 'ok') {
-    alert('Logging result ' + response); 
+     console.log('Logging result ' + response); 
   } else {
-    alert('What happened? ' + response); 
+     console.log('What happened? ' + response); 
   }
 
 })();
