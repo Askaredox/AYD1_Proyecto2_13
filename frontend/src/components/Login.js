@@ -33,7 +33,7 @@ class Login extends Component {
       <>
         <div className="hero is-medium is-info ">
           <div className="hero-body container">
-            <h4 className="title"><font size="70">Login</font></h4>
+            <h4 className="title"><font size="70">Inicio De Sesión</font></h4>
           </div>
         </div>
         <br />
@@ -64,10 +64,10 @@ class Login extends Component {
               )}
               <div className="field is-clearfix">
                 <button
-                  className="button is-primary is-outlined is-pulled-right"
+                  className="button is-success is-outlined is-pulled-right"
                 >
-                  Submit
-                </button>
+                  Iniciar Sesión 
+                </button>               
               </div>
             </div>
           </div>

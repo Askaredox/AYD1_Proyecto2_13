@@ -7,6 +7,7 @@ import AddProduct from './components/AddProduct';
 import Cart from './components/Cart';
 import Login from './components/Login';
 import ProductList from './components/ProductList';
+import Register from './components/Register';
 
 import Context from "./Context";
 
@@ -38,7 +39,7 @@ export default class App extends Component {
       { email, password },
     ).catch((res) => {
       return { status: 401, message: 'Unauthorized' }
-    })
+    })  
 
     if(res.status === 200) {
       const { email } = jwt_decode(res.data.accessToken)
@@ -55,6 +56,19 @@ export default class App extends Component {
       return false;
     }
   }
+
+  register = async (email, password) => {
+    const res = await axios.post(
+      'http://localhost:3001/usuario',
+      { email, password },
+    ).catch((res) => {
+      return { status: 401, message: 'Unauthorized' }
+    })  
+   
+  }
+
+
+
 
   logout = e => {
     e.preventDefault();
@@ -185,7 +199,11 @@ export default class App extends Component {
                   <Link to="/" onClick={this.logout} className="navbar-item">
                     Cerrar Sesión
                   </Link>
-                )}
+                )                
+                }
+                 <Link to="/register" className="navbar-item">
+                  Registrarse
+                </Link>
               </div>
             </nav>
             <Switch>
@@ -194,6 +212,7 @@ export default class App extends Component {
               <Route exact path="/cart" component={Cart} />
               <Route exact path="/add-product" component={AddProduct} />
               <Route exact path="/products" component={ProductList} />
+              <Route exact path="/register" component={Register} />
             </Switch>
           </div>
         </Router>
