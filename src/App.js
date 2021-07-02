@@ -140,6 +140,7 @@ export default class App extends Component {
       return p;
     });
 
+alert('Compra Terminada Gracias!!!!!!!!!'); 
     this.setState({ products });
     this.clearCart();
   };
