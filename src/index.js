@@ -17,10 +17,10 @@ ReactDOM.render(
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
 
-process.on('SIGINT', () =>
-{
-  process.exit(0)
-})
+// process.on('SIGINT', () =>
+// {
+//   process.exit(0)
+// })
 
-process.send('ready')
+// process.send('ready')
 
