@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import Http from "../services/Http";
+import Http from "../service/Http";
 import withContext from "../withContext";
 
 
